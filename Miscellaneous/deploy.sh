@@ -13,11 +13,11 @@ chmod +x ~/wsk/wsk
 export PATH=$PATH:~/wsk
 
 # Configure the OpenWhisk CLI
-wsk property set --apihost openwhisk.ng.bluemix.net --auth "${OPENWHISK_AUTH}" --namespace "${CF_ORG}_${CF_SPACE}"
+wsk property set --apihost openwhisk.ng.bluemix.net --auth "${WSK_AUTH}" --namespace "${CF_ORG}_${CF_SPACE}"
 echo ""
 
 # Create/Update this action
-wsk action update return_environment return_environment.py
+wsk action update return_environment ./Miscellaneous/return_environment.py
 echo""
 
 # List current actions
