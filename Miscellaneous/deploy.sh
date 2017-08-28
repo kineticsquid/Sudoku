@@ -24,5 +24,8 @@ echo ""
 wsk action list
 echo ""
 
+# Now testing the deployment
+./Miscellaneous/test.sh
+
 
 
