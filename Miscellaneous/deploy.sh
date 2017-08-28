@@ -18,8 +18,11 @@ echo ""
 
 # Create/Update this action
 wsk action update return_environment ./Miscellaneous/return_environment.py
-echo""
+echo ""
 
 # List current actions
 wsk action list
+echo ""
+
+
 

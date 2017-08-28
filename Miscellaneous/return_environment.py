@@ -11,10 +11,8 @@ import os
 
 
 def main(dict):
-    print("Input dictionary:")
-    print(dict)
     e = os.environ
-    output = {}
+    output = {"input dictionary" : dict}
     print("Environment:")
     for key in e.keys():
         output[key] = e[key]
