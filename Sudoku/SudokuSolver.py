@@ -1,16 +1,4 @@
-"""
-Custom exception to surface HTTP status codes
-"""
-
-
-class AppError(Exception):
-    def __init__(self, code, message):
-        self.code = code
-        self.message = message
-
-    def __str__(self):
-        return repr('%s - %s' % (self.code, self.message))
-
+import AppExceptions
 
 class SudokuPuzzle(object):
     def __init__(self, size):
@@ -174,20 +162,20 @@ class SudokuPuzzle(object):
 
     def set_inputs(self, input_matrix):
         if len(input_matrix) != self.matrixSize:
-            raise AppError(code=401, message='Input matrix must be %s x %s.' % (self.matrixSize, self.matrixSize))
+            raise AppExceptions(code=401, message='Input matrix must be %s x %s.' % (self.matrixSize, self.matrixSize))
         else:
             for row in range(0, self.matrixSize):
                 if len(input_matrix[row]) != self.matrixSize:
-                    raise AppError(code=401,
-                                   message='Input matrix must be %s x %s.' % (self.matrixSize, self.matrixSize))
+                    raise AppExceptions(code=401,
+                                        message='Input matrix must be %s x %s.' % (self.matrixSize, self.matrixSize))
                 else:
                     for column in range(0, self.matrixSize):
                         i = input_matrix[row][column]
                         if type(input_matrix[row][column]) is not int:
-                            raise AppError(code=401, message='Non integer input')
+                            raise AppExceptions(code=401, message='Non integer input')
                         elif input_matrix[row][column] not in range(0, self.matrixSize + 1):
-                            raise AppError(code=401,
-                                           message='Input integer not between 0 and %s, inclusive.' %
+                            raise AppExceptions(code=401,
+                                                message='Input integer not between 0 and %s, inclusive.' %
                                                        self.matrixSize)
                         else:
                             self.values[row][column] = input_matrix[row][column]
@@ -198,7 +186,7 @@ class SudokuPuzzle(object):
             if self.is_matrix_valid():
                 self.compute_choices()
             else:
-                raise AppError(code=401, message='Invalid input matrix')
+                raise AppExceptions(code=401, message='Invalid input matrix')
 
     """
     Method that returns if we know the solution to the puzzle
@@ -259,7 +247,7 @@ def main(input_dict):
     try:
         input = input_dict.get('input', None)
         if input is None:
-            raise AppError(code=401, message='No \'input\' key specified in input JSON.')
+            raise AppExceptions(code=401, message='No \'input\' key specified in input JSON.')
         else:
             # good_input = json.loads(
             #     "[[0,7,0,6,0,9,0,8,0],[4,0,2,0,0,0,0,0,3],[0,0,9,4,1,0,2,5,0],[8,0,0,0,9,0,3,0,5],[0,0,4,8,0,5,6,0,0],"
@@ -274,7 +262,7 @@ def main(input_dict):
             print(json.dumps(puzzle.values, indent=4))
             output = {"solution": puzzle.values}
         return output
-    except AppError as error:
+    except AppExceptions as error:
         return {"error": error.message}
     except Exception as error:
         return {"error": str(error)}
