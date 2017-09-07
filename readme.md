@@ -16,6 +16,8 @@ Note, building this as part of the Bluemix DevOps pipeline doesn't work because 
 
 DevOps pipeline then invokes the `deploy.sh` and `test.sh` scripts
 
+For these scripts to work they need to authorize via API key. Create one from the Bluemix console and then pass it in to the deployment script as an environment variable.
+
 Invoke the Whisk action from the dev environment with the following. This will cause the dictionary to be sent as input, but when the code is deployed in Whisk, this code is not executed. 
 
     `if __name__ == '__main__':
