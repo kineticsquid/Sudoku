@@ -12,7 +12,7 @@ import os
 
 def main(dict):
     e = os.environ
-    output = {"input dictionary" : dict}
+    output = {"Input dictionary" : dict}
     print("Input Dictionaery: %s\n\n" % dict)
     print("Environment:")
     for key in e.keys():

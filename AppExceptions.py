@@ -3,7 +3,7 @@ Custom exception to surface HTTP status codes
 """
 
 
-class AppError(Exception):
+class AppError(BaseException):
     def __init__(self, code, message):
         self.code = code
         self.message = message

@@ -1,5 +1,3 @@
-import AppExceptions
-
 class SudokuPuzzle(object):
     def __init__(self, size):
 
@@ -24,8 +22,10 @@ class SudokuPuzzle(object):
         # rowContents[0][9] == true, columnContents[4][9] == true, and submatrixContents[3][9] == true.
         # getSubMatrixFor(i, i) returns the submatrix index for a given row and column.
         self.rowContents = [[False for row in range(0, self.matrixSize + 1)] for col in range(0, self.matrixSize + 1)]
-        self.columnContents = [[False for row in range(0, self.matrixSize + 1)] for col in range(0, self.matrixSize + 1)]
-        self.subMatrixContents = [[False for row in range(0, self.matrixSize + 1)] for col in range(0, self.matrixSize + 1)]
+        self.columnContents = [[False for row in range(0, self.matrixSize + 1)] for col in
+                               range(0, self.matrixSize + 1)]
+        self.subMatrixContents = [[False for row in range(0, self.matrixSize + 1)] for col in
+                                  range(0, self.matrixSize + 1)]
 
         # Variables to indicate which rows, columns, and submatrices have errors. E.g. invalidRows.[2] == true means
         # there is an error in the third row.
@@ -162,21 +162,19 @@ class SudokuPuzzle(object):
 
     def set_inputs(self, input_matrix):
         if len(input_matrix) != self.matrixSize:
-            raise AppExceptions(code=401, message='Input matrix must be %s x %s.' % (self.matrixSize, self.matrixSize))
+            raise Exception('Input matrix must be %s x %s.' % (self.matrixSize, self.matrixSize))
         else:
             for row in range(0, self.matrixSize):
                 if len(input_matrix[row]) != self.matrixSize:
-                    raise AppExceptions(code=401,
-                                        message='Input matrix must be %s x %s.' % (self.matrixSize, self.matrixSize))
+                    raise Exception('Input matrix must be %s x %s.' % (self.matrixSize, self.matrixSize))
                 else:
                     for column in range(0, self.matrixSize):
                         i = input_matrix[row][column]
                         if type(input_matrix[row][column]) is not int:
-                            raise AppExceptions(code=401, message='Non integer input')
+                            raise Exception('Input error: Non integer input')
                         elif input_matrix[row][column] not in range(0, self.matrixSize + 1):
-                            raise AppExceptions(code=401,
-                                                message='Input integer not between 0 and %s, inclusive.' %
-                                                       self.matrixSize)
+                            raise Exception('Input error: integer not between 0 and %s, inclusive.' %
+                                            self.matrixSize)
                         else:
                             self.values[row][column] = input_matrix[row][column]
             for row in range(0, self.matrixSize):
@@ -186,7 +184,7 @@ class SudokuPuzzle(object):
             if self.is_matrix_valid():
                 self.compute_choices()
             else:
-                raise AppExceptions(code=401, message='Invalid input matrix')
+                raise Exception('Input error: Invalid input matrix')
 
     """
     Method that returns if we know the solution to the puzzle
@@ -236,6 +234,7 @@ class SudokuPuzzle(object):
                         self.values[currentRow][currentColumn] = 0
                         self.validate_matrix(currentRow, currentColumn)
 
+
 """
 Main method is invoked by OpenWhisk runtime
 """
@@ -243,28 +242,28 @@ Main method is invoked by OpenWhisk runtime
 import json
 import sys
 
+
 def main(input_dict):
     try:
         input = input_dict.get('input', None)
+        print(input)
         if input is None:
-            raise AppExceptions(code=401, message='No \'input\' key specified in input JSON.')
+            raise Exception('No \'input\' key specified in input JSON.')
         else:
-            # good_input = json.loads(
-            #     "[[0,7,0,6,0,9,0,8,0],[4,0,2,0,0,0,0,0,3],[0,0,9,4,1,0,2,5,0],[8,0,0,0,9,0,3,0,5],[0,0,4,8,0,5,6,0,0],"
-            #     "[5,0,1,0,7,0,0,0,9],[0,6,8,0,5,2,4,0,0],[1,0,0,0,0,0,7,0,6],[0,4,0,3,0,1,0,9,0]]")
-            # bad_input = json.loads(
-            #     "[[1.2,7,1,6,0,9,0,8,0],[4,0,2,0,0,0,0,0,3],[0,0,9,4,1,0,2,5,0],[8,0,0,0,9,0,3,0,5],[0,0,4,8,0,5,6,0,0],"
-            #     "[5,0,1,0,7,0,0,0,9],[0,6,8,0,5,2,4,0,0],[1,0,0,0,0,0,7,0,6],[0,4,0,3,0,1,0,9,0]]")
+            input_matrix = json.loads(input)
             puzzle = SudokuPuzzle(9)
-            print(str(puzzle))
-            puzzle.set_inputs(input)
+            puzzle.set_inputs(input_matrix)
             puzzle.compute_solution()
             print(json.dumps(puzzle.values, indent=4))
             output = {"solution": puzzle.values}
+            print(output)
         return output
-    except AppExceptions as error:
-        return {"error": error.message}
     except Exception as error:
         return {"error": str(error)}
 
 
+# This invocation does not happen in Whisk, only outside
+if __name__ == '__main__':
+    # bad_input = "[[1.2,7,1,6,0,9,0,8,0],[4,0,2,0,0,0,0,0,3],[0,0,9,4,1,0,2,5,0],[8,0,0,0,9,0,3,0,5],[0,0,4,8,0,5,6,0,0],[5,0,1,0,7,0,0,0,9],[0,6,8,0,5,2,4,0,0],[1,0,0,0,0,0,7,0,6],[0,4,0,3,0,1,0,9,0]]"
+    good_input = "[[0,7,0,6,0,9,0,8,0],[4,0,2,0,0,0,0,0,3],[0,0,9,4,1,0,2,5,0],[8,0,0,0,9,0,3,0,5],[0,0,4,8,0,5,6,0,0],[5,0,1,0,7,0,0,0,9],[0,6,8,0,5,2,4,0,0],[1,0,0,0,0,0,7,0,6],[0,4,0,3,0,1,0,9,0]]"
+    main({"input": good_input})

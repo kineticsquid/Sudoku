@@ -1,5 +1,5 @@
 ### Overview
-This is a set of scripts that implement OpenWhish (Bluemix Could Functions). Structure is one action per folder. 
+This is a set of scripts that implement OpenWhisk (Bluemix Could Functions). Structure is one action per folder. 
  
 Becasue these scripts have Python dependencies that are not included in the Python3 runtime provided, we need to build an environment and deploy it with the code implementing the script.
 

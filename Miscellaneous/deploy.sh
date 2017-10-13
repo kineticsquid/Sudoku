@@ -1,4 +1,12 @@
 #!/bin/bash
+echo "Building and deploying now..."
+
+# IF CF_ORG is not defined, this is not running as part of a DevOps Pipeline in Bluemix, so set these values
+if [[ -z "${CF_ORG}" ]]; then
+  export CF_ORG='kellrman@us.ibm.com'
+  export CF_SPACE='dev'
+  export WSK_AUTH='7vZob_7TCakks64OV9C4aJxBD9FPscVf1rdoSHdJazs5'
+fi
 
 # Create virtual python runtime with dependencies
 sudo pip install virtualenv
@@ -18,7 +26,13 @@ bx api https://api.ng.bluemix.net
 bx plugin install Cloud-Functions -r Bluemix
 bx login --apikey ${WSK_AUTH}
 bx target -o ${CF_ORG} -s ${CF_SPACE}
-bx wsk action update return_environment ./Miscellaneous.zip --kind python:3
+bx wsk package update utils
+bx wsk action update utils/environment ./Miscellaneous.zip --kind python:3 --web true
+rm Miscellaneous.zip
 
+# Now list the package and action to confirm results
+bx wsk package get utils
 
-
+# Define API - do this once only because there is no update, ony create and delete
+# bx wsk property set --apihost openwhisk.ng.bluemix.net
+# bx wsk api create /environment get /utils/environment --response-type json
