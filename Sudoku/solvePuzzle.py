@@ -245,25 +245,31 @@ import sys
 
 def main(input_dict):
     try:
-        input = input_dict.get('input', None)
+        print("input dictionary:")
+        print(json.dumps(input_dict))
+        input = input_dict.get('matrix', None)
         print(input)
         if input is None:
-            raise Exception('No \'input\' key specified in input JSON.')
+            raise Exception('No \'matrix\' key specified in input JSON.')
         else:
             input_matrix = json.loads(input)
             puzzle = SudokuPuzzle(9)
             puzzle.set_inputs(input_matrix)
             puzzle.compute_solution()
             print(json.dumps(puzzle.values, indent=4))
-            output = {"solution": puzzle.values}
-            print(output)
-        return output
+            return_results = {"statusCode": 200, "body": puzzle.values}
+            print("return:")
+            print(return_results)
+        return return_results
     except Exception as error:
-        return {"error": str(error)}
+        error = {"statusCode": 500, "body": str(error)}
+        print(error)
+        return error
 
 
 # This invocation does not happen in Whisk, only outside
 if __name__ == '__main__':
-    # bad_input = "[[1.2,7,1,6,0,9,0,8,0],[4,0,2,0,0,0,0,0,3],[0,0,9,4,1,0,2,5,0],[8,0,0,0,9,0,3,0,5],[0,0,4,8,0,5,6,0,0],[5,0,1,0,7,0,0,0,9],[0,6,8,0,5,2,4,0,0],[1,0,0,0,0,0,7,0,6],[0,4,0,3,0,1,0,9,0]]"
-    good_input = "[[0,7,0,6,0,9,0,8,0],[4,0,2,0,0,0,0,0,3],[0,0,9,4,1,0,2,5,0],[8,0,0,0,9,0,3,0,5],[0,0,4,8,0,5,6,0,0],[5,0,1,0,7,0,0,0,9],[0,6,8,0,5,2,4,0,0],[1,0,0,0,0,0,7,0,6],[0,4,0,3,0,1,0,9,0]]"
-    main({"input": good_input})
+    if len(sys.argv) == 2:
+        main({"matrix": sys.argv[1]})
+    else:
+        raise Exception('No \'input\' key specified in input JSON.')

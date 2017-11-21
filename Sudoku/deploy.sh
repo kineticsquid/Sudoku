@@ -11,30 +11,40 @@ else
 fi
 
 # Create virtual python runtime with dependencies
-sudo pip install virtualenv
-virtualenv virtualenv
-source virtualenv/bin/activate
-pip install -r ../requirements.txt
+# sudo pip install virtualenv
+# virtualenv virtualenv
+# source virtualenv/bin/activate
+# pip install -r ../requirements.txt
+# pip install --upgrade pillow
+# pip freeze
+
+# read -p "Press [Enter] to contine"
 
 # Zip this up with action code for receive and other pre-req code from this project
-cp twilio_receive.py __main__.py
-zip -r receive.zip __main__.py
-zip -r receive.zip ../AppExceptions.py
-zip -r receive.zip virtualenv
+cp sudokuSolve.py __main__.py
+zip -r sudokuSolve.zip __main__.py
+zip -r sudokuSolve.zip virtualenv
 rm __main__.py
 
 # Zip this up with action code for send and other pre-req code from this project
-cp twilio_send.py __main__.py
-zip -r send.zip __main__.py
-zip -r send.zip ../AppExceptions.py
-zip -r send.zip virtualenv
+cp twilioSend.py __main__.py
+zip -r twilioSend.zip __main__.py
+zip -r twilioSend.zip virtualenv
 rm __main__.py
 
 # Create zip file for the solver action
-cp SudokuSolver.py __main__.py
-zip -r solve.zip __main__.py
-zip -r solve.zip ../AppExceptions.py
+cp solvePuzzle.py __main__.py
+zip -r solvePuzzle.zip __main__.py
+zip -r solvePuzzle.zip virtualenv
 rm __main__.py
+
+#Create zip file for the action to generate an image file
+cp generateImageFile.py __main__.py
+zip -r generateImageFile.zip __main__.py
+zip -r generateImageFile.zip virtualenv
+rm __main__.py
+
+# rm virtualenv
 
 # Authenticate to Bluemix and set the target org and space
 bx api https://api.ng.bluemix.net
@@ -42,17 +52,17 @@ bx login --apikey ${WSK_AUTH}
 bx target -o ${CF_ORG} -s ${CF_SPACE}
 
 # Update the package (create it if it doesn't exist)
-bx wsk package update sudoku
+bx wsk package update sudoku --shared yes
 
 # Update the actions
-bx wsk action update sudoku/twilio_receive ./receive.zip --kind python:3 --web true
-rm receive.zip
-bx wsk action update sudoku/twilio_send ./send.zip --kind python:3 --web true
-rm send.zip
-bx wsk action update sudoku/solve ./solve.zip --kind python:3 --web true
-rm solve.zip
-
-bx wsk action update sudoku/sudoku_solve --sequence sudoku/twilio_receive,sudoku/solve,sudoku/twilio_send
+bx wsk action update sudoku/solve ./sudokuSolve.zip --kind python:3 --web true
+rm sudokuSolve.zip
+bx wsk action update sudoku/twilioSend ./twilioSend.zip --kind python:3 --web true
+rm twilioSend.zip
+bx wsk action update sudoku/solvePuzzle ./solvePuzzle.zip --kind python:3 --web true
+rm solvePuzzle.zip
+bx wsk action update sudoku/generateImageFile ./generateImageFile.zip --kind python:3 --web true
+rm generateImageFile.zip
 
 # Define API - do this once only because there is no update, ony create and delete
 #bx wsk property set --apihost openwhisk.ng.bluemix.net

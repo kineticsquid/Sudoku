@@ -8,9 +8,14 @@
 #
 #
 import os
+import sys
+import sysconfig
 
 
 def main(dict):
+
+    names = sys.builtin_module_names
+    modules = sys.modules
     e = os.environ
     output = {"Input dictionary" : dict}
     print("Input Dictionaery: %s\n\n" % dict)
