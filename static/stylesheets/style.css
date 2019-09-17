@@ -1,0 +1,17 @@
+/* style.css
+ * This file provides css styles.
+ */
+
+body,html {
+	background-color: #3b4b54;
+	height: 100%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-family: monospace;
+	font-size: 100%;
+	color: #ffffff;
+}
+
+input {
+    text-align:center;font-family:monospace;font-size:20px;
+}
