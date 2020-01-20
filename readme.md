@@ -11,3 +11,8 @@ Info on deploying to kubernetes: https://cloud.ibm.com/docs/containers?topic=con
 1. URL Shortening: https://snip.innovate.ibm.com/
 
 Deployment short URL: https://ibm.biz/Bdqxwt
+
+To run locally: `docker run --rm -p 5000:5000 us.icr.io/sudoku/sudoku-main:latest`
+
+Twilio number `984 214 4312`
+
