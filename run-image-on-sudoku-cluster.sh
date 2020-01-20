@@ -11,9 +11,6 @@ kubectl delete ingress sudoku-solver-ingress
 
 kubectl apply -f sudoku-deployment.yaml
 
-#kubectl apply -f deployment.yaml
-#kubectl apply -f ingress.yaml
-
 echo "Deployment:"
 kubectl describe deployment sudoku-solver-deployment
 
