@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "Tagging and pushing docker image. Be sure to start docker.app first"
 echo "To examine contents: 'docker run -it sudoku-main sh'"
+echo "Need to be logged on first with 'bx login --sso'. "
 
 ibmcloud cr login
 docker login us.icr.io -u token -p ${DOCKER_TOKEN}

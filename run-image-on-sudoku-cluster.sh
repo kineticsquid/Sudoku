@@ -1,21 +1,25 @@
 #!/bin/bash
-echo "Logon first with 'ibmcloud login -a cloud.ibm.com -r us-east --sso'"
-echo "then 'ibmcloud ks cluster-config --cluster sudoku'"
-echo "'bx ks cluster-get sudoku | grep Ingress' will provide external hostname and TLS secret'"
-echo "Then to get access, 'export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/sudoku/kube-config-wdc07-sudoku.yml'"
-echo "then 'kubectl get nodes'"
+echo "URL: https://ibm.biz/Bdqxwt"
 
-export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/sudoku/kube-config-wdc07-sudoku.yml
+export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/boif5mdw0btjak7g2d90/kube-config-wdc07-sudoku.yml
 
-kubectl delete service exposed-sudoku-service
-kubectl delete pod sudoku-service
-kubectl run sudoku-service --image=us.icr.io/sudoku/sudoku-main --generator=run-pod/v1 --port=80 --replicas=2
-kubectl expose pod sudoku-service --port=80 --target-port=5000 --type=NodePort --name exposed-sudoku-service
-kubectl describe pod sudoku-service
-echo "Public port (nodeport)..."
-kubectl describe service exposed-sudoku-service
-echo "Public IP address..."
-ibmcloud ks workers sudoku
+echo "KUBECONFIG="$KUBECONFIG
 
-kubectl apply -f sudoku-ingress.yaml
-kubectl describe ingress sudoku-ingress
+kubectl delete deployment sudoku-solver-deployment
+kubectl delete service sudoku-solver-service
+kubectl delete ingress sudoku-solver-ingress
+
+kubectl apply -f sudoku-deployment.yaml
+
+#kubectl apply -f deployment.yaml
+#kubectl apply -f ingress.yaml
+
+echo "Deployment:"
+kubectl describe deployment sudoku-solver-deployment
+
+echo "Service:"
+kubectl describe service sudoku-solver-service
+
+echo "Ingress:"
+kubectl describe ingress sudoku-solver-ingress
+

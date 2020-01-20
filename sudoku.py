@@ -48,6 +48,15 @@ def do_something_whenever_a_request_comes_in():
     url = request.url
     print("Sudoku request: %s" % url)
 
+@app.after_request
+def apply_headers(response):
+    # These are to fix low severity vulnerabilities identified by AppScan
+    # in a dynamic scan
+    response.headers['Content-Security-Policy'] = "object-src 'none'; script-src 'strict-dynamic'"
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    return response
+
 @app.errorhandler(Exception)
 def handle_bad_request(e):
     return render_template('error.html', message=str(e))
@@ -60,6 +69,22 @@ def welcomeToMyapp():
 @app.route('/mobile')
 def mobileWelcome():
     return render_template('mobile.html')
+
+@app.route('/DomainVerification.html')
+def domain_verification0():
+    return app.send_static_file('DomainVerification.html')
+
+@app.route('/domainverification.html')
+def domain_verification1():
+    return app.send_static_file('DomainVerification.html')
+
+@app.route('/DomainVerification')
+def domain_verification2():
+    return app.send_static_file('DomainVerification.html')
+
+@app.route('/domainverification')
+def domain_verification3():
+    return app.send_static_file('DomainVerification.html')
 
 
 @app.route('/build')
