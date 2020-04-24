@@ -16,12 +16,13 @@ RUN pip3 install -r requirements.txt
 ADD *.ttf /app/
 ADD solvePuzzle.py /app
 ADD sudoku.py /app
+ADD generateImage.py /app
 RUN mkdir /app/static
 RUN mkdir /app/static/images
+RUN mkdir /app/static/images/solutions
 RUN mkdir /app/static/stylesheets
 ADD static/images/* /app/static/images/
 ADD static/stylesheets/* /app/static/stylesheets/
-ADD static/DomainVerification.html /app/static
 RUN date > /app/static/build.txt
 RUN mkdir /app/templates
 ADD templates/* /app/templates/
@@ -30,7 +31,7 @@ RUN ls -R
 RUN cat /app/static/build.txt
 
 
-EXPOSE 5000
+EXPOSE 5010
 
 # Run app.py when the container launches
 CMD ["python3", "sudoku.py"]

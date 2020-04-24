@@ -72,7 +72,7 @@ class SudokuPuzzle(object):
         matrixIsValid = True
         for i in range(0, self.matrixSize):
             if self.invalidRows[i] or self.invalidColumns[i] or self.invalidSubMatrices[i]:
-                matrixIsValid = False
+                matrixIsValid = False # lgtm [py/unused-local-variable]
                 break
             return matrixIsValid
 
@@ -169,7 +169,7 @@ class SudokuPuzzle(object):
                     raise Exception('Input matrix must be %s x %s.' % (self.matrixSize, self.matrixSize))
                 else:
                     for column in range(0, self.matrixSize):
-                        i = input_matrix[row][column]
+                        i = input_matrix[row][column] # lgtm [py/unused-local-variable]
                         if type(input_matrix[row][column]) is not int:
                             raise Exception('Input error: Non integer input')
                         elif input_matrix[row][column] not in range(0, self.matrixSize + 1):

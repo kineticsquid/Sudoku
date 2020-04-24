@@ -1,18 +1,11 @@
 ## Sudoku
 
-Info on deploying to kubernetes: https://cloud.ibm.com/docs/containers?topic=containers-ingress
+[Assistant Skill](https://us-east.assistant.watson.cloud.ibm.com/us-east/crn:v1:bluemix:public:conversation:us-east:a~2F0b5a00334eaf9eb9339d2ab48f8080c2:96a44bf2-df75-4683-852d-1187573b8948::/skills/9db4b84c-e573-428a-b01c-52193e9db275/build/dialog)
 
+Twilio number: `984 214 4312`
 
-1. Logon first with `ibmcloud login -a cloud.ibm.com -r us-east -g 'JKs Resource Group' --sso`
-1. Then `ibmcloud ks cluster config --cluster boif5mdw0btjak7g2d90`
-1. Then to get access, `export KUBECONFIG=/Users/jk/.bluemix/plugins/container-service/clusters/boif5mdw0btjak7g2d90/kube-config-wdc07-sudoku.yml`
-1. Use `ibmcloud ks cluster get --cluster boif5mdw0btjak7g2d90 | grep Ingress` to get ingress and secret
-1. Test access with `kubectl get nodes`
-1. URL Shortening: https://snip.innovate.ibm.com/
-
-Deployment short URL: https://ibm.biz/Bdqxwt
-
-To run locally: `docker run --rm -p 5000:5000 us.icr.io/sudoku/sudoku-main:latest`
-
-Twilio number `984 214 4312`
+Curl to test image generation:
+```bash
+curl -X POST -H 'content-type: application/json' http://0.0.0.0:5002/getImage -d '{"inputMatrix" : "[[0,7,0,6,0,9,0,8,0],[4,0,2,0,0,0,0,0,3],[0,0,9,4,1,0,2,5,0],[8,0,0,0,9,0,3,0,5],[0,0,4,8,0,5,6,0,0],[5,0,1,0,7,0,0,0,9],[0,6,8,0,5,2,4,0,0],[1,0,0,0,0,0,7,0,6],[0,4,0,3,0,1,0,9,0]]"}'
+```
 
