@@ -9,9 +9,23 @@ body,html {
 	margin-bottom: 20px;
 	font-family: monospace;
 	font-size: 100%;
-	color: #ffffff;
+}
+
+th, td {
+  border: 2px solid black;
+  border-style: solid;
+}
+
+table {
+  border: 2px solid black;
+  border-collapse: collapse;
+  border-style: solid;
 }
 
 input {
-    text-align:center;font-family:monospace;font-size:20px;
+    text-align:center;font-family:monospace; font-size:40px;
+}
+
+element {
+  border-style: solid;
 }

@@ -20,8 +20,9 @@ import solvePuzzle
 import logging
 import sys
 import time
-import uuid
+from PIL import Image
 import generateImage
+import io
 
 app = Flask(__name__)
 
@@ -122,6 +123,10 @@ def handle_bad_request(e):
 def welcomeToMyapp():
     return render_template('index.html', url_root=url_root)
 
+@app.route('/2')
+def welcomeToMyapp2():
+    return render_template('index2.html', url_root=url_root)
+
 
 @app.route('/echo', methods=['GET', 'POST'])
 def echo():
@@ -202,18 +207,15 @@ def getSolution():
         error_content = {'Error': 'Invalid or unsolvable input matrix'}
         return Response(json.dumps(error_content), status=400, mimetype='application/json')
 
-@app.route('/getImage', methods=['POST'])
+@app.route('/generateSolutionImage', methods=['POST'])
 def getImage():
     payload = request.json
     solution_matrix = payload.get('inputMatrix')
     if solution_matrix is not None:
         try:
-            filename = str(uuid.uuid1())
-            fullpath = app.static_folder + '/images/solutions/%s.png' % filename
-            generateImage.generate(solution_matrix, fullpath)
-            image_url = url_for('static', filename='images/solutions/%s.png' % filename)
-            return Response(json.dumps({'imageURL' : image_url}), status=200, mimetype='application/json')
-
+            solutionImage = generateImage.generate(solution_matrix)
+            imageBytes = solutionImage.getvalue()
+            return Response(imageBytes, status=200, mimetype='image/png')
         except Exception as e:
             error_content = {'Error': 'Internal error generating solution image.'}
             return Response(json.dumps(error_content), status=500, mimetype='application/json')

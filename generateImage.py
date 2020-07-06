@@ -4,7 +4,7 @@ from PIL import ImageFont
 import io
 
 
-def generate(matrix, image_filename):
+def generate(matrix):
     if matrix is None:
         raise Exception("Need matrix input")
     text_size = 32
@@ -59,10 +59,6 @@ def generate(matrix, image_filename):
                    width=line_width * 2)
         else:
             d.line((border_size, i * cell_size + border_size, cell_size * 9 + border_size, i * cell_size + border_size), fill=black, width=line_width)
-
-    img.save(image_filename)
-
     s = io.BytesIO()
     img.save(s, 'png')
-    s.seek(0)
     return s

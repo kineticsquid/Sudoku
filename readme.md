@@ -2,7 +2,6 @@
 
 [Assistant Skill](https://us-east.assistant.watson.cloud.ibm.com/us-east/crn:v1:bluemix:public:conversation:us-east:a~2F0b5a00334eaf9eb9339d2ab48f8080c2:96a44bf2-df75-4683-852d-1187573b8948::/skills/9db4b84c-e573-428a-b01c-52193e9db275/build/dialog)
 
-Twilio number: `984 214 4312`
 
 Curl to test image generation:
 ```bash
