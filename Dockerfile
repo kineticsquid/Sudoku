@@ -1,19 +1,13 @@
-FROM us.icr.io/redsonja_hyboria/watson-base-common-rhubi7
-
-USER root
+FROM python:3.9-alpine
 
 # Set the working directory to /app
 WORKDIR /app
-ADD requirements.txt /app
-RUN microdnf update \
-    && source scl_source enable rh-python36 \
-    && microdnf update; microdnf clean all
-ENV PATH="/opt/rh/rh-python36/root/usr/bin:${PATH}"
 RUN pip3 install --upgrade pip
+
+ADD requirements.txt /app
 RUN pip3 install -r requirements.txt
 
 # Copy runtime files from the current directory into the container at /app
-ADD *.ttf /app/
 ADD solvePuzzle.py /app
 ADD sudoku.py /app
 ADD generateImage.py /app
@@ -23,6 +17,7 @@ RUN mkdir /app/static/images/solutions
 RUN mkdir /app/static/stylesheets
 ADD static/images/* /app/static/images/
 ADD static/stylesheets/* /app/static/stylesheets/
+ADD static/DomainVerification.html /app/static/DomainVerification.html
 RUN date > /app/static/build.txt
 RUN mkdir /app/templates
 ADD templates/* /app/templates/

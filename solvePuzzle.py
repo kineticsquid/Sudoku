@@ -215,6 +215,18 @@ class SudokuPuzzle(object):
     """
 
     def compute_solution(self):
+        self.compute_solution_heavy_lifting()
+        if self.is_matrix_complete() and self.is_matrix_valid():
+            self.solutionKnown = True
+        else:
+            raise Exception('Unsolvable matrix')
+
+
+    """
+    This does the heavy lifting and recursion. 
+    """
+
+    def compute_solution_heavy_lifting(self):
         if self.is_matrix_complete() and self.is_matrix_valid():
             self.solutionKnown = True
             return
@@ -229,9 +241,7 @@ class SudokuPuzzle(object):
                     self.values[currentRow][currentColumn] = nextValueToTry
                     self.validate_matrix(currentRow, currentColumn)
                     self.compute_choices()
-                    self.compute_solution()
+                    self.compute_solution_heavy_lifting()
                     if not self.solutionKnown:
                         self.values[currentRow][currentColumn] = 0
                         self.validate_matrix(currentRow, currentColumn)
-
-

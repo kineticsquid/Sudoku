@@ -20,8 +20,6 @@ import solvePuzzle
 import logging
 import sys
 import time
-from PIL import Image
-import generateImage
 import io
 
 app = Flask(__name__)
@@ -171,6 +169,11 @@ def mobileWelcome():
 def build():
     return app.send_static_file('build.txt')
 
+
+@app.route('/DomainVerification.html')
+def domain_verification():
+    return app.send_static_file('DomainVerification.html')
+
 @app.route('/createInputMatrix')
 def createInputMatrix():
     queryParms = request.args
@@ -205,22 +208,6 @@ def getSolution():
             return Response(json.dumps(error_content), status=400, mimetype='application/json')
     else:
         error_content = {'Error': 'Invalid or unsolvable input matrix'}
-        return Response(json.dumps(error_content), status=400, mimetype='application/json')
-
-@app.route('/generateSolutionImage', methods=['POST'])
-def getImage():
-    payload = request.json
-    solution_matrix = payload.get('inputMatrix')
-    if solution_matrix is not None:
-        try:
-            solutionImage = generateImage.generate(solution_matrix)
-            imageBytes = solutionImage.getvalue()
-            return Response(imageBytes, status=200, mimetype='image/png')
-        except Exception as e:
-            error_content = {'Error': 'Internal error generating solution image.'}
-            return Response(json.dumps(error_content), status=500, mimetype='application/json')
-    else:
-        error_content = {'Error': 'Missing solution matrix input \'inputMatrix\'.'}
         return Response(json.dumps(error_content), status=400, mimetype='application/json')
 
 @app.route('/solve', methods=['POST'])
