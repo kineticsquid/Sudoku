@@ -13,14 +13,13 @@ Puzzle URL is http://sudoku.johnkellerman.org/sudoku
 
 """
 import os
-from flask import Flask, request, render_template, Response, url_for
+from flask import Flask, request, render_template, Response
 import re
 import json
 import solvePuzzle
 import logging
 import sys
 import time
-import io
 
 app = Flask(__name__)
 
@@ -28,11 +27,6 @@ MATRIX_SIZE = 9
 SUDOKU_DEBUG = 'SUDOKU_DEBUG'
 URL_ROOT_KEY = 'URL_ROOT'
 os.environ[SUDOKU_DEBUG] = 'Y'
-
-url_root = os.environ.get(URL_ROOT_KEY, None)
-if url_root is None:
-    url_root = ''
-
 
 """
 Method to define and return a logger for logging
@@ -91,15 +85,15 @@ def getImageUrl(image_filename):
 def do_something_whenever_a_request_comes_in():
     url = request.url
     if os.environ[SUDOKU_DEBUG] == 'Y':
-        logger.info("Sudoku request: %s" % url)
-        logger.info('Environ:\t%s' % request.environ)
-        logger.info('Path:\t%s' % request.path)
-        logger.info('Full_path:\t%s' % request.full_path)
-        logger.info('Script_root:\t%s' % request.script_root)
-        logger.info('Url:\t%s' % request.url)
-        logger.info('Base_url:\t%s' % request.base_url)
-        logger.info('Url_root:\t%s' % request.url_root)
-        logger.info('Scheme:\t%s' % request.scheme)
+        print("Sudoku request: %s" % url)
+        print('Environ:\t%s' % request.environ)
+        print('Path:\t%s' % request.path)
+        print('Full_path:\t%s' % request.full_path)
+        print('Script_root:\t%s' % request.script_root)
+        print('Url:\t%s' % request.url)
+        print('Base_url:\t%s' % request.base_url)
+        print('Url_root:\t%s' % request.url_root)
+        print('Scheme:\t%s' % request.scheme)
 
 @app.after_request
 def apply_headers(response):
@@ -113,17 +107,17 @@ def apply_headers(response):
 
 @app.errorhandler(Exception)
 def handle_bad_request(e):
-    logger.error('Error: %s' % str(e))
-    return render_template('blank.html', message=str(e), title='Error!', url_root=url_root)
+    print('Error: %s' % str(e))
+    return render_template('blank.html', message=str(e), title='Error!')
 
 
 @app.route('/')
 def welcomeToMyapp():
-    return render_template('index.html', url_root=url_root)
+    return render_template('index.html')
 
 @app.route('/2')
 def welcomeToMyapp2():
-    return render_template('index2.html', url_root=url_root)
+    return render_template('index2.html')
 
 
 @app.route('/echo', methods=['GET', 'POST'])
@@ -133,8 +127,7 @@ def echo():
     form = request.form
     for key in form.keys():
         output = '%s\n%s - %s' % (output, key, form.get(key))
-    return render_template('blank.html', message=str(output), title='Echo Input',
-                           url_root=url_root)
+    return render_template('blank.html', message=str(output), title='Echo Input')
 
 
 @app.route('/printenv')
@@ -142,27 +135,24 @@ def printenv():
     output = 'Environment Variables:'
     for key in os.environ.keys():
         output = '%s\n%s - %s' % (output, key, os.environ.get(key))
-    return render_template('blank.html', message=str(output), title='Environment Variables',
-                           url_root=url_root)
+    return render_template('blank.html', message=str(output), title='Environment Variables')
 
 
 @app.route('/debug')
 def debug():
     os.environ[SUDOKU_DEBUG] = 'Y'
-    return render_template('blank.html', message=str('Debug on'), title='Debug on',
-                           url_root=url_root)
+    return render_template('blank.html', message=str('Debug on'), title='Debug on')
 
 
 @app.route('/nodebug')
 def nodebug():
     os.environ[SUDOKU_DEBUG] = 'N'
-    return render_template('blank.html', message=str('Debug off'), title='Debug off',
-                           url_root=url_root)
+    return render_template('blank.html', message=str('Debug off'), title='Debug off')
 
 
 @app.route('/mobile')
 def mobileWelcome():
-    return render_template('mobile.html', url_root=url_root)
+    return render_template('mobile.html')
 
 
 @app.route('/build')
@@ -218,8 +208,8 @@ def solve():
         return render_template('blank.html', message="Missing or invalid input matrix",
                                title='Error!')
     if os.environ[SUDOKU_DEBUG] == 'Y':
-        logger.info("input dictionary:")
-        logger.info(json.dumps(input_matrix))
+        print("input dictionary:")
+        print(json.dumps(input_matrix))
     puzzle = solvePuzzle.SudokuPuzzle(9)
     puzzle.set_inputs(input_matrix)
     puzzle.compute_solution()
@@ -229,19 +219,12 @@ def solve():
         for column in range(0, 9):
             fieldname = 'matrix%s%s' % (row, column)
             template_values[fieldname] = solution_matrix[row][column]
-    template_values['url_root'] = url_root
     return render_template('index.html', **template_values)
 
 
 port = os.getenv('PORT', '5010')
 
 if __name__ == "__main__":
-    logger = get_my_logger()
-    logger.info('Starting %s....' % sys.argv[0])
-    logger.info('Build: %s' % time.ctime(os.path.getmtime(sys.argv[0])))
-    logger.info('Python: ' + sys.version)
-    logger.info('Environment Variables:')
-    for key in os.environ.keys():
-        logger.info('%s:\t%s' % (key, os.environ.get(key)))
-    logger.info('App static folder: %s' % app.static_folder)
+    print('Starting %s....' % sys.argv[0])
+    print('Python: ' + sys.version)
     app.run(host='0.0.0.0', port=int(port))
