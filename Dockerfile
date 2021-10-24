@@ -18,15 +18,10 @@ RUN mkdir /app/static/stylesheets
 ADD static/images/* /app/static/images/
 ADD static/stylesheets/* /app/static/stylesheets/
 ADD static/DomainVerification.html /app/static/DomainVerification.html
-RUN date > /app/static/build.txt
 RUN mkdir /app/templates
 ADD templates/* /app/templates/
 
-RUN ls -R
-RUN cat /app/static/build.txt
-
-
-EXPOSE 5010
+#EXPOSE 5010
 
 # Run app.py when the container launches
-CMD ["python3", "sudoku.py"]
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 sudoku:app

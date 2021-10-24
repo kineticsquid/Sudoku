@@ -1,17 +1,3 @@
-"""
-Deployment and debugging of this thing is not straight forward. It uses an environment variable URL_ROOT_KEY.
-URL_ROOT_KEY can be used when deploying at runtime to deploy to something other and '/'. E.g.
-'cloud.ibm.com/url_root/sudoku.
-
-URL_ROOT_KEY is not needed when running the python script or when running the image locally. Use it when defining
-a 'path' value for the ingress YAML that is not '/'. It's value needs to match what is specified for the ingress
-path. URL_ROOT_KEY is also used in generating HTML from the Flask templates.
-
-This goes with a GoDaddy domain name and CNAME entry. Subdomain sudoku.johnkellerman.org maps to https://sudoku-564793-074b55ec662880a9b91b986213323a0b-0000.us-east.containers.appdomain.cloud.
-
-Puzzle URL is http://sudoku.johnkellerman.org/sudoku
-
-"""
 import os
 from flask import Flask, request, render_template, Response
 import re
@@ -19,13 +5,11 @@ import json
 import solvePuzzle
 import logging
 import sys
-import time
 
 app = Flask(__name__)
 
 MATRIX_SIZE = 9
 SUDOKU_DEBUG = 'SUDOKU_DEBUG'
-URL_ROOT_KEY = 'URL_ROOT'
 os.environ[SUDOKU_DEBUG] = 'Y'
 
 """
@@ -155,14 +139,10 @@ def mobileWelcome():
     return render_template('mobile.html')
 
 
-@app.route('/build')
+@app.route('/build', methods=['GET', 'POST'])
 def build():
-    return app.send_static_file('build.txt')
+    return date_environ
 
-
-@app.route('/DomainVerification.html')
-def domain_verification():
-    return app.send_static_file('DomainVerification.html')
 
 @app.route('/createInputMatrix')
 def createInputMatrix():
@@ -221,10 +201,15 @@ def solve():
             template_values[fieldname] = solution_matrix[row][column]
     return render_template('index.html', **template_values)
 
-
-port = os.getenv('PORT', '5010')
+print('Starting %s....' % sys.argv[0])
+print('Python: ' + sys.version)
+date_environ = os.environ.get('DATE')
+if date_environ is None:
+    date_environ = 'dev environment'
+print('Running build: %s' % date_environ)
+print('Environment Variables:')
+environment_vars = dict(os.environ)
+print(environment_vars)
 
 if __name__ == "__main__":
-    print('Starting %s....' % sys.argv[0])
-    print('Python: ' + sys.version)
-    app.run(host='0.0.0.0', port=int(port))
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
