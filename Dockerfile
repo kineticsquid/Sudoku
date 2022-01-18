@@ -17,7 +17,6 @@ RUN mkdir /app/static/images/solutions
 RUN mkdir /app/static/stylesheets
 ADD static/images/* /app/static/images/
 ADD static/stylesheets/* /app/static/stylesheets/
-ADD static/DomainVerification.html /app/static/DomainVerification.html
 RUN mkdir /app/templates
 ADD templates/* /app/templates/
 
