@@ -19,6 +19,7 @@ ADD static/images/* /app/static/images/
 ADD static/stylesheets/* /app/static/stylesheets/
 RUN mkdir /app/templates
 ADD templates/* /app/templates/
+RUN date > /app/static/build.txt
 
 #EXPOSE 5010
 
