@@ -10,5 +10,9 @@
 .git
 .gitignore
 .idea
-readme.md
+.dockerignore
+.vscode/
+__pycache__/
+static/images/solutions/
 *.sh
+*.md

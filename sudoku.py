@@ -113,15 +113,6 @@ def echo():
         output = '%s\n%s - %s' % (output, key, form.get(key))
     return render_template('blank.html', message=str(output), title='Echo Input')
 
-
-@app.route('/printenv')
-def printenv():
-    output = 'Environment Variables:'
-    for key in os.environ.keys():
-        output = '%s\n%s - %s' % (output, key, os.environ.get(key))
-    return render_template('blank.html', message=str(output), title='Environment Variables')
-
-
 @app.route('/debug')
 def debug():
     os.environ[SUDOKU_DEBUG] = 'Y'
@@ -226,4 +217,4 @@ except FileNotFoundError:
 print('Running build: %s' % build_stamp)
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
