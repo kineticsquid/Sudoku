@@ -29,3 +29,25 @@ input {
 element {
   border-style: solid;
 }
+
+button {
+  text-align:center;font-family:monospace; font-size:40px; width: 240px;
+}
+
+.odd-answer {
+  background-color:#FFF;
+  color: #F0F;
+}
+
+.even-answer {
+  background-color:#BBB;
+  color: #F0F;
+}
+
+.odd-input {
+  background-color:#FFF;
+}
+
+.even-input {
+  background-color:#BBB;
+}
