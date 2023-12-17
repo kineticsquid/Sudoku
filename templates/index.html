@@ -15,107 +15,108 @@
 </head>
 
 <body>
+<h1>Sudoku Solver</h1>
 
 <form action="/solve" method="POST" id="input-matrix-form">
     <table align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td><input type="textbox" name="matrix00" value="{{ matrix00 }}" size="2" class="{{ style00 }}" /></td>
-    <td><input type="textbox" name="matrix01" value="{{ matrix01 }}" size="2" class="{{ style01 }}" /></td>
-    <td><input type="textbox" name="matrix02" value="{{ matrix02 }}" size="2" class="{{ style02 }}" /></td>
-    <td><input type="textbox" name="matrix03" value="{{ matrix03 }}" size="2" class="{{ style03 }}" /></td>
-    <td><input type="textbox" name="matrix04" value="{{ matrix04 }}" size="2" class="{{ style04 }}" /></td>
-    <td><input type="textbox" name="matrix05" value="{{ matrix05 }}" size="2" class="{{ style05 }}" /></td>
-    <td><input type="textbox" name="matrix06" value="{{ matrix06 }}" size="2" class="{{ style06 }}" /></td>
-    <td><input type="textbox" name="matrix07" value="{{ matrix07 }}" size="2" class="{{ style07 }}" /></td>
-    <td><input type="textbox" name="matrix08" value="{{ matrix08 }}" size="2" class="{{ style08 }}" /></td>
+    <td><input type="textbox" name="matrix00" value="{{ matrix00 }}" size="{{ tablesize }}" class="{{ style00 }}" /></td>
+    <td><input type="textbox" name="matrix01" value="{{ matrix01 }}" size="{{ tablesize }}" class="{{ style01 }}" /></td>
+    <td><input type="textbox" name="matrix02" value="{{ matrix02 }}" size="{{ tablesize }}" class="{{ style02 }}" /></td>
+    <td><input type="textbox" name="matrix03" value="{{ matrix03 }}" size="{{ tablesize }}" class="{{ style03 }}" /></td>
+    <td><input type="textbox" name="matrix04" value="{{ matrix04 }}" size="{{ tablesize }}" class="{{ style04 }}" /></td>
+    <td><input type="textbox" name="matrix05" value="{{ matrix05 }}" size="{{ tablesize }}" class="{{ style05 }}" /></td>
+    <td><input type="textbox" name="matrix06" value="{{ matrix06 }}" size="{{ tablesize }}" class="{{ style06 }}" /></td>
+    <td><input type="textbox" name="matrix07" value="{{ matrix07 }}" size="{{ tablesize }}" class="{{ style07 }}" /></td>
+    <td><input type="textbox" name="matrix08" value="{{ matrix08 }}" size="{{ tablesize }}" class="{{ style08 }}" /></td>
   </tr>
   <tr>
-    <td><input type="textbox" name="matrix10" value="{{ matrix10 }}" size="2" class="{{ style10 }}" /></td>
-    <td><input type="textbox" name="matrix11" value="{{ matrix11 }}" size="2" class="{{ style11 }}" /></td>
-    <td><input type="textbox" name="matrix12" value="{{ matrix12 }}" size="2" class="{{ style12 }}" /></td>
-    <td><input type="textbox" name="matrix13" value="{{ matrix13 }}" size="2" class="{{ style13 }}" /></td>
-    <td><input type="textbox" name="matrix14" value="{{ matrix14 }}" size="2" class="{{ style14 }}" /></td>
-    <td><input type="textbox" name="matrix15" value="{{ matrix15 }}" size="2" class="{{ style15 }}" /></td>
-    <td><input type="textbox" name="matrix16" value="{{ matrix16 }}" size="2" class="{{ style16 }}" /></td>
-    <td><input type="textbox" name="matrix17" value="{{ matrix17 }}" size="2" class="{{ style17 }}" /></td>
-    <td><input type="textbox" name="matrix18" value="{{ matrix18 }}" size="2" class="{{ style18 }}" /></td>
+    <td><input type="textbox" name="matrix10" value="{{ matrix10 }}" size="{{ tablesize }}" class="{{ style10 }}" /></td>
+    <td><input type="textbox" name="matrix11" value="{{ matrix11 }}" size="{{ tablesize }}" class="{{ style11 }}" /></td>
+    <td><input type="textbox" name="matrix12" value="{{ matrix12 }}" size="{{ tablesize }}" class="{{ style12 }}" /></td>
+    <td><input type="textbox" name="matrix13" value="{{ matrix13 }}" size="{{ tablesize }}" class="{{ style13 }}" /></td>
+    <td><input type="textbox" name="matrix14" value="{{ matrix14 }}" size="{{ tablesize }}" class="{{ style14 }}" /></td>
+    <td><input type="textbox" name="matrix15" value="{{ matrix15 }}" size="{{ tablesize }}" class="{{ style15 }}" /></td>
+    <td><input type="textbox" name="matrix16" value="{{ matrix16 }}" size="{{ tablesize }}" class="{{ style16 }}" /></td>
+    <td><input type="textbox" name="matrix17" value="{{ matrix17 }}" size="{{ tablesize }}" class="{{ style17 }}" /></td>
+    <td><input type="textbox" name="matrix18" value="{{ matrix18 }}" size="{{ tablesize }}" class="{{ style18 }}" /></td>
   </tr>
   <tr>
-    <td><input type="textbox" name="matrix20" value="{{ matrix20 }}" size="2" class="{{ style20 }}" /></td>
-    <td><input type="textbox" name="matrix21" value="{{ matrix21 }}" size="2" class="{{ style21 }}" /></td>
-    <td><input type="textbox" name="matrix22" value="{{ matrix22 }}" size="2" class="{{ style22 }}" /></td>
-    <td><input type="textbox" name="matrix23" value="{{ matrix23 }}" size="2" class="{{ style23 }}" /></td>
-    <td><input type="textbox" name="matrix24" value="{{ matrix24 }}" size="2" class="{{ style24 }}" /></td>
-    <td><input type="textbox" name="matrix25" value="{{ matrix25 }}" size="2" class="{{ style25 }}" /></td>
-    <td><input type="textbox" name="matrix26" value="{{ matrix26 }}" size="2" class="{{ style26 }}" /></td>
-    <td><input type="textbox" name="matrix27" value="{{ matrix27 }}" size="2" class="{{ style27 }}" /></td>
-    <td><input type="textbox" name="matrix28" value="{{ matrix28 }}" size="2" class="{{ style28 }}" /></td>
+    <td><input type="textbox" name="matrix20" value="{{ matrix20 }}" size="{{ tablesize }}" class="{{ style20 }}" /></td>
+    <td><input type="textbox" name="matrix21" value="{{ matrix21 }}" size="{{ tablesize }}" class="{{ style21 }}" /></td>
+    <td><input type="textbox" name="matrix22" value="{{ matrix22 }}" size="{{ tablesize }}" class="{{ style22 }}" /></td>
+    <td><input type="textbox" name="matrix23" value="{{ matrix23 }}" size="{{ tablesize }}" class="{{ style23 }}" /></td>
+    <td><input type="textbox" name="matrix24" value="{{ matrix24 }}" size="{{ tablesize }}" class="{{ style24 }}" /></td>
+    <td><input type="textbox" name="matrix25" value="{{ matrix25 }}" size="{{ tablesize }}" class="{{ style25 }}" /></td>
+    <td><input type="textbox" name="matrix26" value="{{ matrix26 }}" size="{{ tablesize }}" class="{{ style26 }}" /></td>
+    <td><input type="textbox" name="matrix27" value="{{ matrix27 }}" size="{{ tablesize }}" class="{{ style27 }}" /></td>
+    <td><input type="textbox" name="matrix28" value="{{ matrix28 }}" size="{{ tablesize }}" class="{{ style28 }}" /></td>
   </tr>
   <tr>
-    <td><input type="textbox" name="matrix30" value="{{ matrix30 }}" size="2" class="{{ style30 }}" /></td>
-    <td><input type="textbox" name="matrix31" value="{{ matrix31 }}" size="2" class="{{ style31 }}" /></td>
-    <td><input type="textbox" name="matrix32" value="{{ matrix32 }}" size="2" class="{{ style32 }}" /></td>
-    <td><input type="textbox" name="matrix33" value="{{ matrix33 }}" size="2" class="{{ style33 }}"/></td>
-    <td><input type="textbox" name="matrix34" value="{{ matrix34 }}" size="2" class="{{ style34 }}"/></td>
-    <td><input type="textbox" name="matrix35" value="{{ matrix35 }}" size="2" class="{{ style35 }}"/></td>
-    <td><input type="textbox" name="matrix36" value="{{ matrix36 }}" size="2" class="{{ style36 }}" /></td>
-    <td><input type="textbox" name="matrix37" value="{{ matrix37 }}" size="2" class="{{ style37 }}" /></td>
-    <td><input type="textbox" name="matrix38" value="{{ matrix38 }}" size="2" class="{{ style38 }}" /></td>
+    <td><input type="textbox" name="matrix30" value="{{ matrix30 }}" size="{{ tablesize }}" class="{{ style30 }}" /></td>
+    <td><input type="textbox" name="matrix31" value="{{ matrix31 }}" size="{{ tablesize }}" class="{{ style31 }}" /></td>
+    <td><input type="textbox" name="matrix32" value="{{ matrix32 }}" size="{{ tablesize }}" class="{{ style32 }}" /></td>
+    <td><input type="textbox" name="matrix33" value="{{ matrix33 }}" size="{{ tablesize }}" class="{{ style33 }}"/></td>
+    <td><input type="textbox" name="matrix34" value="{{ matrix34 }}" size="{{ tablesize }}" class="{{ style34 }}"/></td>
+    <td><input type="textbox" name="matrix35" value="{{ matrix35 }}" size="{{ tablesize }}" class="{{ style35 }}"/></td>
+    <td><input type="textbox" name="matrix36" value="{{ matrix36 }}" size="{{ tablesize }}" class="{{ style36 }}" /></td>
+    <td><input type="textbox" name="matrix37" value="{{ matrix37 }}" size="{{ tablesize }}" class="{{ style37 }}" /></td>
+    <td><input type="textbox" name="matrix38" value="{{ matrix38 }}" size="{{ tablesize }}" class="{{ style38 }}" /></td>
   </tr>
   <tr>
-    <td><input type="textbox" name="matrix40" value="{{ matrix40 }}" size="2" class="{{ style40 }}" /></td>
-    <td><input type="textbox" name="matrix41" value="{{ matrix41 }}" size="2" class="{{ style41 }}" /></td>
-    <td><input type="textbox" name="matrix42" value="{{ matrix42 }}" size="2" class="{{ style42 }}" /></td>
-    <td><input type="textbox" name="matrix43" value="{{ matrix43 }}" size="2" class="{{ style43 }}"/></td>
-    <td><input type="textbox" name="matrix44" value="{{ matrix44 }}" size="2" class="{{ style44 }}"/></td>
-    <td><input type="textbox" name="matrix45" value="{{ matrix45 }}" size="2" class="{{ style45 }}"/></td>
-    <td><input type="textbox" name="matrix46" value="{{ matrix46 }}" size="2" class="{{ style46 }}" /></td>
-    <td><input type="textbox" name="matrix47" value="{{ matrix47 }}" size="2" class="{{ style47 }}" /></td>
-    <td><input type="textbox" name="matrix48" value="{{ matrix48 }}" size="2" class="{{ style48 }}" /></td>
+    <td><input type="textbox" name="matrix40" value="{{ matrix40 }}" size="{{ tablesize }}" class="{{ style40 }}" /></td>
+    <td><input type="textbox" name="matrix41" value="{{ matrix41 }}" size="{{ tablesize }}" class="{{ style41 }}" /></td>
+    <td><input type="textbox" name="matrix42" value="{{ matrix42 }}" size="{{ tablesize }}" class="{{ style42 }}" /></td>
+    <td><input type="textbox" name="matrix43" value="{{ matrix43 }}" size="{{ tablesize }}" class="{{ style43 }}"/></td>
+    <td><input type="textbox" name="matrix44" value="{{ matrix44 }}" size="{{ tablesize }}" class="{{ style44 }}"/></td>
+    <td><input type="textbox" name="matrix45" value="{{ matrix45 }}" size="{{ tablesize }}" class="{{ style45 }}"/></td>
+    <td><input type="textbox" name="matrix46" value="{{ matrix46 }}" size="{{ tablesize }}" class="{{ style46 }}" /></td>
+    <td><input type="textbox" name="matrix47" value="{{ matrix47 }}" size="{{ tablesize }}" class="{{ style47 }}" /></td>
+    <td><input type="textbox" name="matrix48" value="{{ matrix48 }}" size="{{ tablesize }}" class="{{ style48 }}" /></td>
   </tr>
   <tr>
-    <td><input type="textbox" name="matrix50" value="{{ matrix50 }}" size="2" class="{{ style50 }}" /></td>
-    <td><input type="textbox" name="matrix51" value="{{ matrix51 }}" size="2" class="{{ style51 }}" /></td>
-    <td><input type="textbox" name="matrix52" value="{{ matrix52 }}" size="2" class="{{ style52 }}" /></td>
-    <td><input type="textbox" name="matrix53" value="{{ matrix53 }}" size="2" class="{{ style53 }}"/></td>
-    <td><input type="textbox" name="matrix54" value="{{ matrix54 }}" size="2" class="{{ style54 }}"/></td>
-    <td><input type="textbox" name="matrix55" value="{{ matrix55 }}" size="2" class="{{ style55 }}"/></td>
-    <td><input type="textbox" name="matrix56" value="{{ matrix56 }}" size="2" class="{{ style56 }}" /></td>
-    <td><input type="textbox" name="matrix57" value="{{ matrix57 }}" size="2" class="{{ style57 }}" /></td>
-    <td><input type="textbox" name="matrix58" value="{{ matrix58 }}" size="2" class="{{ style58 }}" /></td>
+    <td><input type="textbox" name="matrix50" value="{{ matrix50 }}" size="{{ tablesize }}" class="{{ style50 }}" /></td>
+    <td><input type="textbox" name="matrix51" value="{{ matrix51 }}" size="{{ tablesize }}" class="{{ style51 }}" /></td>
+    <td><input type="textbox" name="matrix52" value="{{ matrix52 }}" size="{{ tablesize }}" class="{{ style52 }}" /></td>
+    <td><input type="textbox" name="matrix53" value="{{ matrix53 }}" size="{{ tablesize }}" class="{{ style53 }}"/></td>
+    <td><input type="textbox" name="matrix54" value="{{ matrix54 }}" size="{{ tablesize }}" class="{{ style54 }}"/></td>
+    <td><input type="textbox" name="matrix55" value="{{ matrix55 }}" size="{{ tablesize }}" class="{{ style55 }}"/></td>
+    <td><input type="textbox" name="matrix56" value="{{ matrix56 }}" size="{{ tablesize }}" class="{{ style56 }}" /></td>
+    <td><input type="textbox" name="matrix57" value="{{ matrix57 }}" size="{{ tablesize }}" class="{{ style57 }}" /></td>
+    <td><input type="textbox" name="matrix58" value="{{ matrix58 }}" size="{{ tablesize }}" class="{{ style58 }}" /></td>
   </tr>
   <tr>
-    <td><input type="textbox" name="matrix60" value="{{ matrix60 }}" size="2" class="{{ style60 }}" /></td>
-    <td><input type="textbox" name="matrix61" value="{{ matrix61 }}" size="2" class="{{ style61 }}" /></td>
-    <td><input type="textbox" name="matrix62" value="{{ matrix62 }}" size="2" class="{{ style62 }}" /></td>
-    <td><input type="textbox" name="matrix63" value="{{ matrix63 }}" size="2" class="{{ style63 }}" /></td>
-    <td><input type="textbox" name="matrix64" value="{{ matrix64 }}" size="2" class="{{ style64 }}" /></td>
-    <td><input type="textbox" name="matrix65" value="{{ matrix65 }}" size="2" class="{{ style65 }}" /></td>
-    <td><input type="textbox" name="matrix66" value="{{ matrix66 }}" size="2" class="{{ style66 }}" /></td>
-    <td><input type="textbox" name="matrix67" value="{{ matrix67 }}" size="2" class="{{ style67 }}" /></td>
-    <td><input type="textbox" name="matrix68" value="{{ matrix68 }}" size="2" class="{{ style68 }}" /></td>
+    <td><input type="textbox" name="matrix60" value="{{ matrix60 }}" size="{{ tablesize }}" class="{{ style60 }}" /></td>
+    <td><input type="textbox" name="matrix61" value="{{ matrix61 }}" size="{{ tablesize }}" class="{{ style61 }}" /></td>
+    <td><input type="textbox" name="matrix62" value="{{ matrix62 }}" size="{{ tablesize }}" class="{{ style62 }}" /></td>
+    <td><input type="textbox" name="matrix63" value="{{ matrix63 }}" size="{{ tablesize }}" class="{{ style63 }}" /></td>
+    <td><input type="textbox" name="matrix64" value="{{ matrix64 }}" size="{{ tablesize }}" class="{{ style64 }}" /></td>
+    <td><input type="textbox" name="matrix65" value="{{ matrix65 }}" size="{{ tablesize }}" class="{{ style65 }}" /></td>
+    <td><input type="textbox" name="matrix66" value="{{ matrix66 }}" size="{{ tablesize }}" class="{{ style66 }}" /></td>
+    <td><input type="textbox" name="matrix67" value="{{ matrix67 }}" size="{{ tablesize }}" class="{{ style67 }}" /></td>
+    <td><input type="textbox" name="matrix68" value="{{ matrix68 }}" size="{{ tablesize }}" class="{{ style68 }}" /></td>
   </tr>
   <tr>
-    <td><input type="textbox" name="matrix70" value="{{ matrix70 }}" size="2" class="{{ style70 }}" /></td>
-    <td><input type="textbox" name="matrix71" value="{{ matrix71 }}" size="2" class="{{ style71 }}" /></td>
-    <td><input type="textbox" name="matrix72" value="{{ matrix72 }}" size="2" class="{{ style72 }}" /></td>
-    <td><input type="textbox" name="matrix73" value="{{ matrix73 }}" size="2" class="{{ style73 }}" /></td>
-    <td><input type="textbox" name="matrix74" value="{{ matrix74 }}" size="2" class="{{ style74 }}" /></td>
-    <td><input type="textbox" name="matrix75" value="{{ matrix75 }}" size="2" class="{{ style75 }}" /></td>
-    <td><input type="textbox" name="matrix76" value="{{ matrix76 }}" size="2" class="{{ style76 }}" /></td>
-    <td><input type="textbox" name="matrix77" value="{{ matrix77 }}" size="2" class="{{ style77 }}" /></td>
-    <td><input type="textbox" name="matrix78" value="{{ matrix78 }}" size="2" class="{{ style78 }}" /></td>
+    <td><input type="textbox" name="matrix70" value="{{ matrix70 }}" size="{{ tablesize }}" class="{{ style70 }}" /></td>
+    <td><input type="textbox" name="matrix71" value="{{ matrix71 }}" size="{{ tablesize }}" class="{{ style71 }}" /></td>
+    <td><input type="textbox" name="matrix72" value="{{ matrix72 }}" size="{{ tablesize }}" class="{{ style72 }}" /></td>
+    <td><input type="textbox" name="matrix73" value="{{ matrix73 }}" size="{{ tablesize }}" class="{{ style73 }}" /></td>
+    <td><input type="textbox" name="matrix74" value="{{ matrix74 }}" size="{{ tablesize }}" class="{{ style74 }}" /></td>
+    <td><input type="textbox" name="matrix75" value="{{ matrix75 }}" size="{{ tablesize }}" class="{{ style75 }}" /></td>
+    <td><input type="textbox" name="matrix76" value="{{ matrix76 }}" size="{{ tablesize }}" class="{{ style76 }}" /></td>
+    <td><input type="textbox" name="matrix77" value="{{ matrix77 }}" size="{{ tablesize }}" class="{{ style77 }}" /></td>
+    <td><input type="textbox" name="matrix78" value="{{ matrix78 }}" size="{{ tablesize }}" class="{{ style78 }}" /></td>
   </tr>
   <tr>
-    <td><input type="textbox" name="matrix80" value="{{ matrix80 }}" size="2" class="{{ style80 }}" /></td>
-    <td><input type="textbox" name="matrix81" value="{{ matrix81 }}" size="2" class="{{ style81 }}" /></td>
-    <td><input type="textbox" name="matrix82" value="{{ matrix82 }}" size="2" class="{{ style82 }}" /></td>
-    <td><input type="textbox" name="matrix83" value="{{ matrix83 }}" size="2" class="{{ style83 }}" /></td>
-    <td><input type="textbox" name="matrix84" value="{{ matrix84 }}" size="2" class="{{ style84 }}" /></td>
-    <td><input type="textbox" name="matrix85" value="{{ matrix85 }}" size="2" class="{{ style85 }}" /></td>
-    <td><input type="textbox" name="matrix86" value="{{ matrix86 }}" size="2" class="{{ style86 }}" /></td>
-    <td><input type="textbox" name="matrix87" value="{{ matrix87 }}" size="2" class="{{ style87 }}" /></td>
-    <td><input type="textbox" name="matrix88" value="{{ matrix88 }}" size="2" class="{{ style88 }}" /></td>
+    <td><input type="textbox" name="matrix80" value="{{ matrix80 }}" size="{{ tablesize }}" class="{{ style80 }}" /></td>
+    <td><input type="textbox" name="matrix81" value="{{ matrix81 }}" size="{{ tablesize }}" class="{{ style81 }}" /></td>
+    <td><input type="textbox" name="matrix82" value="{{ matrix82 }}" size="{{ tablesize }}" class="{{ style82 }}" /></td>
+    <td><input type="textbox" name="matrix83" value="{{ matrix83 }}" size="{{ tablesize }}" class="{{ style83 }}" /></td>
+    <td><input type="textbox" name="matrix84" value="{{ matrix84 }}" size="{{ tablesize }}" class="{{ style84 }}" /></td>
+    <td><input type="textbox" name="matrix85" value="{{ matrix85 }}" size="{{ tablesize }}" class="{{ style85 }}" /></td>
+    <td><input type="textbox" name="matrix86" value="{{ matrix86 }}" size="{{ tablesize }}" class="{{ style86 }}" /></td>
+    <td><input type="textbox" name="matrix87" value="{{ matrix87 }}" size="{{ tablesize }}" class="{{ style87 }}" /></td>
+    <td><input type="textbox" name="matrix88" value="{{ matrix88 }}" size="{{ tablesize }}" class="{{ style88 }}" /></td>
   </tr>
 </table>
 </form>

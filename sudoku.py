@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, Response
 import re
 import json
 import solvePuzzle
@@ -173,6 +173,43 @@ def solve():
 @app.route('/clear', methods=['POST'])
 def clear():
     return redirect('/')
+
+@app.route('/createInputMatrix')
+def createInputMatrix():
+    queryParms = request.args
+    inputString = queryParms.get('inputString')
+    if inputString is not None:
+        matrix = createInputMatrixFromString(inputString)
+        if len(matrix) > 0:
+            return Response(json.dumps(matrix), status=200, mimetype='application/json')
+    # otherwise error condition
+    error_content = {'Error': 'Missing or invalid input matrix'}
+    return Response(json.dumps(error_content), status=400, mimetype='application/json')
+
+
+@app.route('/getSolution', methods=['POST'])
+def getSolution():
+    payload = request.json
+    inputMatrix = payload.get('inputMatrix')
+    if inputMatrix is not None:
+        try:
+            puzzle = solvePuzzle.SudokuPuzzle(9)
+            puzzle.set_inputs(inputMatrix)
+            puzzle.compute_solution()
+            solution_matrix = puzzle.values
+            if len(solution_matrix) > 0:
+                return Response(json.dumps(solution_matrix), status=200, mimetype='application/json')
+            else:
+                # otherwise error condition
+                error_content = {'Error': 'Invalid or unsolvable input matrix'}
+                return Response(json.dumps(error_content), status=400, mimetype='application/json')
+        except Exception as e:
+            error_content = {'Error': 'Invalid or unsolvable input matrix'}
+            return Response(json.dumps(error_content), status=400, mimetype='application/json')
+    else:
+        error_content = {'Error': 'Invalid or unsolvable input matrix'}
+        return Response(json.dumps(error_content), status=400, mimetype='application/json')
+
 
 
 log('Starting %s %s' % (sys.argv[0], app.name))

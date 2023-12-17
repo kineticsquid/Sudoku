@@ -2,13 +2,36 @@
  * This file provides css styles.
  */
 
-body,html {
-	background-color: #3b4b54;
-	height: 100%;
-	margin-top: 20px;
-	margin-bottom: 20px;
+html { background-color: #8b9ba4; } 
+
+h1 {text-align: center;
+  margin: 20px;
+}
+
+body {
+  font-family: monospace;
+  font-size: 120%;
+  background-color:  #6b7b84;
+  height: 95vh;
+  max-width: 375px;
+  margin: 0 auto;
+}
+
+button {
 	font-family: monospace;
-	font-size: 100%;
+	font-size: 120%;
+	border-radius: 4px;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	padding: 10px 100px;
+	text-align: center;
+	background-color: #aaaaaa;
+	position: relative;
+    margin: 30px auto;
+    display:block;
+}
+
+button:hover {
+    background-color: #888888;
 }
 
 th, td {
@@ -23,15 +46,15 @@ table {
 }
 
 input {
-    text-align:center;font-family:monospace; font-size:40px;
+  width: 28px;
+  height: 28px;
+  font-family: monospace;
+  font-size: 120%;
+  text-align: center;
 }
 
 element {
   border-style: solid;
-}
-
-button {
-  text-align:center;font-family:monospace; font-size:40px; width: 240px;
 }
 
 .odd-answer {
